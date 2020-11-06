@@ -1,4 +1,4 @@
-import { ADD_NEWS } from '../actions';
+import { ADD_NEWS, DELETE_NEWS } from '../actions';
 
 let nextId = 1;
 
@@ -11,7 +11,11 @@ const newsListReducer = (state = [], action) => {
   			author: action.data.author,
   			comment: action.data.comment 
 			}
-			return [...state, newNews]
+			return [...state, newNews];
+		case DELETE_NEWS:
+			return state.filter( news => {
+        return news.id != action.id;
+      })
 		// case TOGGLE_TODO:
 		// 	return state.map(todo => {
 		// 		if(todo.id === action.todoId)

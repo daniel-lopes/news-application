@@ -9,11 +9,15 @@ import {
 import { connect } from 'react-redux';
 import { addNews } from '../actions';
 
-function Form(props){
+//apagar depois
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-	const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [comment, setComment] = useState('');
+function Form(props, {navigation}){
+
+	const [title, setTitle] = useState('Teste Redux');
+  const [author, setAuthor] = useState('Daniel Lopes');
+  const [comment, setComment] = useState('teste de redux e debugger');
   const [trySubmit, setTrySubmit] = useState(false);
 
   const saveData = () => {
@@ -74,6 +78,10 @@ function Form(props){
 			<Button 
 				title={"Publicar"}
 				onPress={()=> saveData()}
+			/>
+			<Button 
+				title={"Ver Noticias"}
+				onPress={()=> props.navigation.navigate('news')}
 			/>
 		</View>
 	)
