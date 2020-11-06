@@ -16,15 +16,6 @@ const newsListReducer = (state = [], action) => {
 			return state.filter( news => {
         return news.id != action.id;
       })
-		// case TOGGLE_TODO:
-		// 	return state.map(todo => {
-		// 		if(todo.id === action.todoId)
-		// 			return {
-		// 				...todo,
-		// 				done: !todo.done
-		// 			};
-		// 		return todo;
-		// 	});
 		default: 
 			return state;
 	}
