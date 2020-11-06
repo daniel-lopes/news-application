@@ -6,8 +6,10 @@ import {
 	Button,
 	Alert
 } from 'react-native';
+import { connect } from 'react-redux';
+import { addNews } from '../actions';
 
-function form(){
+function Form(props){
 
 	const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
@@ -18,6 +20,11 @@ function form(){
   	setTrySubmit(true);
   	if(validatesFormSubmit()){
   		console.log('Dados Ok!');
+  		props.dispatchAddNews({
+  			title,
+  			author,
+  			comment
+  		})
   	}
   	
   }
@@ -88,5 +95,7 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default form;
+export default connect(null, {
+	dispatchAddNews: addNews,
+})(Form);
 
