@@ -44,7 +44,7 @@ function Form(props){
   }
 
 	return (
-		<View>
+		<View style={styles.container}>
 			<TextInput
 				placeholder="Título da notícia"
 				style={[
@@ -80,6 +80,12 @@ function Form(props){
 }
 
 const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+	},
 	input: {
 		borderStyle: 'solid', 
 		borderColor: '#000',
