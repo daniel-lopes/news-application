@@ -8,11 +8,15 @@ function NewsListItem(props){
 				<Text style={styles.title}>{props.title}</Text>
 				<Text
 					style={styles.delete}
-					onPress={props.onPressDelete}>x
+					onPress={props.onPressDelete}>
+					x
 				</Text>
 			</View>
 			<Text>by {props.author}</Text>
-			<Text style={styles.comment}>{props.comment}</Text>
+			<View style={styles.body}>
+				<Text style={styles.comment}>{props.comment}</Text>
+				<Text onPress={props.onPressUpdate}>(!)</Text>
+			</View>
 		</View>
 	)
 }
@@ -37,6 +41,9 @@ const styles = StyleSheet.create({
 	comment: {
 		marginTop: 15,
 		fontSize: 15
+	},
+	body: {
+
 	}
 })
 

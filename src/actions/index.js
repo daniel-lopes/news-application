@@ -9,3 +9,9 @@ export const deleteNews = id => ({
 	type: DELETE_NEWS,
 	id
 })
+
+export const UPDATE_NEWS = 'UPDATE_NEWS';
+export const upadateNews = data => ({
+	type: UPDATE_NEWS,
+	data
+})

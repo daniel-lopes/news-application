@@ -3,9 +3,10 @@ import { StyleSheet, View, FlatList, TextInput, Button } from 'react-native';
 import { connect } from 'react-redux';
 import NewsListItem from '../components/NewsListItem';
 import { deleteNews } from '../actions';
-import { deepClone } from '../utils'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-function NewsList({news, deleteNews}){
+function NewsList({news, deleteNews, navigation}){
 
 	const [textSearch, setSearch] = useState('');
 	const [searchNews, setSearchNews] = useState('');
@@ -49,6 +50,7 @@ function NewsList({news, deleteNews}){
 						author={item.author}
 						comment={item.comment}
 						onPressDelete={() => deleteNews(item.id)}
+						onPressUpdate={() => navigation.navigate('edit', {id: item.id})}
 					/>
 				)}
 				keyExtractor={ item => item.id.toString() }

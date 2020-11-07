@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	StyleSheet,
 	View,
@@ -7,30 +7,48 @@ import {
 	Alert
 } from 'react-native';
 import { connect } from 'react-redux';
-import { addNews } from '../actions';
-
-//apagar depois
+import { addNews, upadateNews } from '../actions';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-function Form(props, {navigation}){
+function Form(props){
 
-	const [title, setTitle] = useState('Teste Redux');
-  const [author, setAuthor] = useState('Daniel Lopes');
-  const [comment, setComment] = useState('teste de redux e debugger');
+  const [id, setId] = useState(props.id);
+	const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [comment, setComment] = useState('');
   const [trySubmit, setTrySubmit] = useState(false);
+
+  useEffect(() => {
+	  props.news.map(item => {
+	    if(item.id == props.id){
+	    	setTitle(item.title);
+	    	setAuthor(item.author);
+	    	setComment(item.comment);
+	    	setId(item.id);
+	    }
+	  });
+	}, []);
 
   const saveData = () => {
   	setTrySubmit(true);
   	if(validatesFormSubmit()){
-  		console.log('Dados Ok!');
-  		props.dispatchAddNews({
-  			title,
-  			author,
-  			comment
-  		})
+  		if(id){
+  			props.dispatchUpdateNews({
+	  			title,
+	  			author,
+	  			comment,
+	  			id
+  			})
+  		} else {
+	  		props.dispatchAddNews({
+	  			title,
+	  			author,
+	  			comment,
+	  			id
+	  		})
+  		}
   	}
-  	
   }
 
   const validatesForm = field => {
@@ -51,6 +69,7 @@ function Form(props, {navigation}){
 		<View style={styles.container}>
 			<TextInput
 				placeholder="Título da notícia"
+				value={title}
 				style={[
 					styles.input,
 					validatesForm(title)
@@ -58,6 +77,7 @@ function Form(props, {navigation}){
 				onChangeText={value => setTitle(value)} />
 			<TextInput
 				placeholder="Autor"
+				value={author}
 				style={[
 					styles.input,
 					validatesForm(author)
@@ -69,6 +89,7 @@ function Form(props, {navigation}){
 				maxLength={100}
 				textAlignVertical = "top"
 				placeholder="Texto da notícia"
+				value={comment}
 				style={[
 					styles.input,
 					{paddingTop: 12},
@@ -109,6 +130,12 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default connect(null, {
+const mapStateToProps = state => {
+	const { news } = state;
+	return { news };
+}
+
+export default connect(mapStateToProps, {
 	dispatchAddNews: addNews,
+	dispatchUpdateNews: upadateNews
 })(Form);
