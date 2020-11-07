@@ -10,6 +10,7 @@ function NewsList({news, deleteNews, navigation}){
 
 	const [textSearch, setSearch] = useState('');
 	const [searchNews, setSearchNews] = useState('');
+	
 	const search = value => {
 		let result = news.filter( item => {
 	    return (

@@ -97,7 +97,7 @@ function Form(props){
 				]}
 				onChangeText={value => setComment(value)} />
 			<Button 
-				title={"Publicar"}
+				title={props.nameButton || "Publicar"}
 				onPress={()=> saveData()}
 			/>
 			<Button 

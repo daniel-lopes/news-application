@@ -5,7 +5,9 @@ import Form from '../components/Form';
 function EditNews(props){
 	return (
 		<View style={styles.container}>
-			<Form id={props.route.params.id}/>
+			<Form 
+				id={props.route.params.id}
+				nameButton={"Salvar Alterações"}/>
 		</View>
 	)
 }
