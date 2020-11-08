@@ -5,7 +5,8 @@ import {
 	StyleSheet,
 	TextInput,
 	Alert,
-	Image
+	Image,
+	TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addNews, upadateNews } from '../actions';
@@ -98,10 +99,11 @@ function Form(props){
 					validatesForm(comment)
 				]}
 				onChangeText={value => setComment(value)} />
-			<Text
-				style={styles.button}
+			<TouchableOpacity
 				onPress={()=> saveData()}
-			>{props.nameButton}</Text>
+			>
+				<Text style={styles.button}>{props.nameButton}</Text>
+			</TouchableOpacity>
 {/*			<Button 
 				title={"Ver Noticias"}
 				onPress={()=> props.navigation.navigate('news')}

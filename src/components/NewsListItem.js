@@ -7,16 +7,21 @@ function NewsListItem(props){
 			<View style={styles.header}>
 				<Text style={styles.title}>{props.title}</Text>
 				<Text
-					style={styles.delete}
+					style={[
+						styles.delete,
+						!props.edit ? styles.hideActions : null
+					]}
 					onPress={props.onPressDelete}>
 					x
 				</Text>
 			</View>
-			<Text>by {props.author}</Text>
 			<View style={styles.body}>
 				<Text style={styles.comment}>{props.comment}</Text>
-				<Text onPress={props.onPressUpdate}>(!)</Text>
+				<Text
+					style={!props.edit ? styles.hideActions : null}
+					onPress={props.onPressUpdate}>(!)</Text>
 			</View>
+			<Text style={styles.author}>Autor: {props.author}</Text>
 		</View>
 	)
 }
@@ -25,11 +30,14 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: '#fff',
 		marginBottom: 20,
-		paddingVertical: 20,
-		paddingLeft: 10 
+		paddingVertical: 15,
+		paddingHorizontal: 15,
+		borderWidth: 1,
+		borderRadius: 10,
+		borderColor: '#ccc'
 	},
 	title: {
-		fontSize: 25,
+		fontSize: 19,
 		flex: 25
 	},
 	delete: {
@@ -39,11 +47,19 @@ const styles = StyleSheet.create({
 		flexDirection: 'row' 
 	},
 	comment: {
-		marginTop: 15,
-		fontSize: 15
+		marginTop: 8,
+		fontSize: 16,
+		color: '#3f424a'
+	},
+	author: {
+		color: '#3f424a',
+		fontSize: 12
 	},
 	body: {
-
+		marginBottom: 8
+	},
+	hideActions:{
+		display: 'none'
 	}
 })
 

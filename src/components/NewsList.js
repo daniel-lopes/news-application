@@ -1,11 +1,11 @@
 import React, { useState} from 'react';
 import { View, Text, StyleSheet, FlatList, TextInput, Button } from 'react-native';
 import { connect } from 'react-redux';
-import NewsListItem from '../components/NewsListItem';
+import NewsListItem from './NewsListItem';
 import { deleteNews } from '../actions';
-import Welcome from '../components/Welcome';
+import Welcome from './Welcome';
 
-function NewsList({news, deleteNews, navigation}){
+function NewsList({news, deleteNews, navigation, edit}){
 
 	const [textSearch, setSearch] = useState('');
 	const [searchNews, setSearchNews] = useState('');
@@ -58,6 +58,7 @@ function NewsList({news, deleteNews, navigation}){
 						comment={item.comment}
 						onPressDelete={() => deleteNews(item.id)}
 						onPressUpdate={() => navigation.navigate('edit', {id: item.id})}
+						edit={edit}
 					/>
 				)}
 				keyExtractor={ item => item.id.toString() }
