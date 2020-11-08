@@ -1,10 +1,9 @@
 import React, { useState} from 'react';
-import { StyleSheet, View, FlatList, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TextInput, Button } from 'react-native';
 import { connect } from 'react-redux';
 import NewsListItem from '../components/NewsListItem';
 import { deleteNews } from '../actions';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import Welcome from '../components/Welcome';
 
 function NewsList({news, deleteNews, navigation}){
 
@@ -29,19 +28,26 @@ function NewsList({news, deleteNews, navigation}){
 		return searchNews && textSearch ? searchNews : news;
 	}
 
+	const showSearch = () => {
+		if(news.length){
+			return (
+				<View style={styles.containerSearch}>
+					<TextInput
+						style={styles.input}
+						onChangeText={value => automaticSearch(value)}
+					/>
+					<Text
+						style={styles.button}
+						onPress={()=> search(textSearch)}
+					>Pesquisar</Text>
+				</View>
+			)
+		}
+	}
+
 	return (
 		<View style={styles.container}>
-			<View style={styles.containerSearch}>
-				<TextInput
-					style={styles.input}
-					onChangeText={value => automaticSearch(value)}
-				/>
-				<Button
-					style={styles.button}
-					title={"Pesquisar"}
-					onPress={()=> search(textSearch)}
-				/>
-			</View>
+			{ showSearch() }
 			<FlatList
 				data={dataNews()}
 				renderItem={({item}) => (
@@ -55,15 +61,21 @@ function NewsList({news, deleteNews, navigation}){
 					/>
 				)}
 				keyExtractor={ item => item.id.toString() }
-			/>						
+			/>
+			<Welcome 
+				data={news}
+				navigation={navigation}
+			/>
 		</View>
 	)
 }
 
 const styles = StyleSheet.create({
 	container: {
-		marginHorizontal: 20,
-		marginBottom: 80
+		paddingHorizontal: 20,
+		marginBottom: 80,
+		backgroundColor: '#fff',
+		height: '100%'
 	},
 	containerSearch: {
 		flexDirection: 'row',
@@ -76,15 +88,18 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderRadius: 3,
 		width: 300,
-		minHeight: 40,
+		minHeight: 45,
 		paddingLeft: 10,
 		marginBottom: 20,
 		flex: 3,
 		marginRight: 5,
-		backgroundColor: '#fff'
 	},
 	button: {
-		flex: 1
+		flex: 1,
+		backgroundColor: '#151a4e',
+		color: '#fff',
+		textAlign: 'center',
+		paddingVertical: 13,
 	}
 })
 

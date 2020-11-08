@@ -18,8 +18,6 @@ const newsListReducer = (state = [], action) => {
       })
     case UPDATE_NEWS:
     	return state.map( news => {
-    		console.log('News: ', news.id);
-    		console.log('Id: ', action.data.id);
     		if(news.id == action.data.id)
     			return {
     				...news,

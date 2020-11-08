@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {
-	StyleSheet,
 	View,
+	Text,
+	StyleSheet,
 	TextInput,
-	Button,
-	Alert
+	Alert,
+	Image
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addNews, upadateNews } from '../actions';
@@ -67,6 +68,7 @@ function Form(props){
 
 	return (
 		<View style={styles.container}>
+			<Image style={styles.logo} source={require('../../assets/code7Logo.png')}/>
 			<TextInput
 				placeholder="Título da notícia"
 				value={title}
@@ -92,18 +94,18 @@ function Form(props){
 				value={comment}
 				style={[
 					styles.input,
-					{paddingTop: 12},
+					{paddingTop: 18},
 					validatesForm(comment)
 				]}
 				onChangeText={value => setComment(value)} />
-			<Button 
-				title={props.nameButton || "Publicar"}
+			<Text
+				style={styles.button}
 				onPress={()=> saveData()}
-			/>
-			<Button 
+			>{props.nameButton}</Text>
+{/*			<Button 
 				title={"Ver Noticias"}
 				onPress={()=> props.navigation.navigate('news')}
-			/>
+			/>*/}
 		</View>
 	)
 }
@@ -114,19 +116,35 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 20
+	},
+	logo: {
+		width:231,
+		height: 40,
+		resizeMode: 'stretch',
+		marginBottom: '30%',
 	},
 	input: {
 		borderStyle: 'solid', 
 		borderColor: '#000',
 		borderWidth: 1,
 		borderRadius: 3,
-		width: 300,
-		minHeight: 40,
+		width: '100%',
+		minHeight: 50,
 		paddingLeft: 10,
 		marginBottom: 20,
 	},
 	validatesForm: {
 		borderColor: 'red'
+	},
+	button: {
+		fontSize: 20,
+		backgroundColor: '#151a4e',
+		color: '#fff',
+		minWidth: '100%',
+		textAlign: 'center',
+		paddingVertical: 15,
+		textTransform: 'uppercase',
 	}
 })
 
