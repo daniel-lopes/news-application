@@ -11,7 +11,7 @@ const newsListReducer = (state = [], action) => {
   			author: action.data.author,
   			comment: action.data.comment 
 			}
-			return [...state, newNews];
+			return [newNews, ...state];
 		case DELETE_NEWS:
 			return state.filter( news => {
         return news.id != action.id;

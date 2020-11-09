@@ -1,27 +1,40 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {  faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 function NewsListItem(props){
 	return (
 		<View style={styles.container}>
 			<View style={styles.header}>
 				<Text style={styles.title}>{props.title}</Text>
-				<Text
-					style={[
-						styles.delete,
-						!props.edit ? styles.hideActions : null
-					]}
+				<TouchableOpacity
 					onPress={props.onPressDelete}>
-					x
-				</Text>
+						<FontAwesomeIcon 
+							icon={ faTrashAlt } 
+							size={18}
+							color={ '#c22b2e' }
+							style={[
+								styles.delete,
+								!props.edit ? styles.hideActions : null
+							]}/>
+				</TouchableOpacity>
 			</View>
-			<View style={styles.body}>
-				<Text style={styles.comment}>{props.comment}</Text>
-				<Text
-					style={!props.edit ? styles.hideActions : null}
-					onPress={props.onPressUpdate}>(!)</Text>
+			<Text style={styles.comment}>{props.comment}</Text>
+			<View style={styles.footer}>
+				<Text style={styles.author}>Autor: {props.author}</Text>
+				<TouchableOpacity
+					onPress={props.onPressUpdate}>
+					<FontAwesomeIcon 
+						icon={ faPencilAlt } 
+						size={18}
+						color={ '#151a4e' }
+						style={[
+							styles.update,
+							!props.edit ? styles.hideActions : null
+						]}/>
+					</TouchableOpacity>
 			</View>
-			<Text style={styles.author}>Autor: {props.author}</Text>
 		</View>
 	)
 }
@@ -38,7 +51,8 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		fontSize: 19,
-		flex: 25
+		flex: 25,
+		lineHeight: 25
 	},
 	delete: {
 		flex: 1
@@ -47,16 +61,23 @@ const styles = StyleSheet.create({
 		flexDirection: 'row' 
 	},
 	comment: {
-		marginTop: 8,
+		marginTop: 10,
 		fontSize: 16,
-		color: '#3f424a'
+		color: '#3f424a',
+		lineHeight: 21
 	},
 	author: {
 		color: '#3f424a',
-		fontSize: 12
+		fontSize: 12,
+		flex: 20,
+		marginTop: 5
 	},
-	body: {
-		marginBottom: 8
+	footer: {
+		marginBottom: 8,
+		flexDirection: 'row'
+	},
+	update: {
+		flex: 1
 	},
 	hideActions:{
 		display: 'none'

@@ -9,6 +9,7 @@ import devToolsEnhancer from 'remote-redux-devtools';
 import RegisterNews from './src/pages/RegisterNews';
 import News from './src/pages/News';
 import EditNews from './src/pages/EditNews';
+import ManageNews from './src/pages/ManageNews';
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() );
 const Stack = createStackNavigator();
@@ -19,7 +20,7 @@ export default function App() {
       <StatusBar backgroundColor="#030842" barStyle="light-content" />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="news"
+          initialRouteName="News"
           screenOptions={{
             headerStyle: {
               backgroundColor: '#151a4e',
@@ -27,31 +28,32 @@ export default function App() {
             headerTintColor: '#fff',
             headerTitleStyle: {
               // fontWeight: 'bold',
-            },
+            }
         }}>
           <Stack.Screen
-            name="news"
+            name="News"
             component={News}
             options={{
-              title: 'Code7 News',
-              // headerTintColor: 'white',
-              // headerStyle: {
-              //     backgroundColor: '#6ca2f7',
-              //     borderBottomWidth: 1,
-              //     borderBottomColor: '#C5C5C5'
-              // },
-              // headerTitleStyle: {
-              //     color: 'white',
-              //     fontSize: 30
-              // },
+              title: 'Code7 News'
             }}/>
           <Stack.Screen
-            name="form"
+            name="RegisterNews"
             component={RegisterNews} 
             options={{
               title: 'Cadastro de Notícias'
             }}/>
-          <Stack.Screen name="edit" component={EditNews} />
+          <Stack.Screen
+            name="EditNews"
+            component={EditNews} 
+            options={{
+              title: 'Editar Notícias'
+            }}/>
+          <Stack.Screen
+            name="ManageNews"
+            component={ManageNews} 
+            options={{
+              title: 'Gerenciar Notícias'
+            }}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

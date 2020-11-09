@@ -1,11 +1,12 @@
 import React, { useState} from 'react';
-import { View, Text, StyleSheet, FlatList, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TextInput, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import NewsListItem from './NewsListItem';
 import { deleteNews } from '../actions';
 import Welcome from './Welcome';
+import Footer from './Footer';
 
-function NewsList({news, deleteNews, navigation, edit}){
+function NewsList({news, deleteNews, navigation, edit, active}){
 
 	const [textSearch, setSearch] = useState('');
 	const [searchNews, setSearchNews] = useState('');
@@ -45,6 +46,28 @@ function NewsList({news, deleteNews, navigation, edit}){
 		}
 	}
 
+	const confirmDelete = id => {
+		Alert.alert(
+			'Excluir Notícia',
+			'Deseja mesmo excluir esta notícia?',
+			[{
+				text: 'Não',
+				onPress: () => {
+					Alert.alert('Operação cancelada com sucesso!');
+				},
+				style: 'cancel' //IOS
+			}, 
+			{
+				text: 'Sim',
+				onPress: () => {
+					deleteNews(id);
+					Alert.alert('Notícia excluída com sucesso!');
+				}
+			}],
+			{ cancelable: false }
+		)
+	}
+
 	return (
 		<View style={styles.container}>
 			{ showSearch() }
@@ -56,8 +79,8 @@ function NewsList({news, deleteNews, navigation, edit}){
 						title={item.title}
 						author={item.author}
 						comment={item.comment}
-						onPressDelete={() => deleteNews(item.id)}
-						onPressUpdate={() => navigation.navigate('edit', {id: item.id})}
+						onPressDelete={() => confirmDelete(item.id)}
+						onPressUpdate={() => navigation.navigate('EditNews', {id: item.id})}
 						edit={edit}
 					/>
 				)}
@@ -67,6 +90,9 @@ function NewsList({news, deleteNews, navigation, edit}){
 				data={news}
 				navigation={navigation}
 			/>
+			<Footer 
+				active={active}
+				navigation={navigation} />
 		</View>
 	)
 }

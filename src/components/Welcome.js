@@ -15,7 +15,7 @@ const Welcome = (props) => {
 					click no botão abaixo para começar a criar notícias
 				</Text>
 				<TouchableOpacity
-					onPress={() => props.navigation.navigate('form')}
+					onPress={() => props.navigation.navigate('RegisterNews')}
 				>
 					<Text style={styles.button}>Cadastrar Notícias</Text>
 				</TouchableOpacity>

@@ -6,12 +6,12 @@ import {
 	TextInput,
 	Alert,
 	Image,
-	TouchableOpacity
+	TouchableOpacity,
+	Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addNews, upadateNews } from '../actions';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import Footer from './Footer';
 
 function Form(props){
 
@@ -42,6 +42,8 @@ function Form(props){
 	  			comment,
 	  			id
   			})
+  			Alert.alert('Alteração de notícia realizada com sucesso!');
+	  		props.navigation.navigate('News');
   		} else {
 	  		props.dispatchAddNews({
 	  			title,
@@ -49,6 +51,11 @@ function Form(props){
 	  			comment,
 	  			id
 	  		})
+	  		setTitle('');
+	    	setAuthor('');
+	    	setComment('');
+	    	setTrySubmit(false);
+  			Alert.alert('Notícia publicada com sucesso!');
   		}
   	}
   }
@@ -68,46 +75,51 @@ function Form(props){
   }
 
 	return (
-		<View style={styles.container}>
-			<Image style={styles.logo} source={require('../../assets/code7Logo.png')}/>
-			<TextInput
-				placeholder="Título da notícia"
-				value={title}
-				style={[
-					styles.input,
-					validatesForm(title)
-				]}
-				onChangeText={value => setTitle(value)} />
-			<TextInput
-				placeholder="Autor"
-				value={author}
-				style={[
-					styles.input,
-					validatesForm(author)
-				]}
-				onChangeText={value => setAuthor(value)} />
-			<TextInput
-				multiline={true}
-				numberOfLines={7}
-				maxLength={100}
-				textAlignVertical = "top"
-				placeholder="Texto da notícia"
-				value={comment}
-				style={[
-					styles.input,
-					{paddingTop: 18},
-					validatesForm(comment)
-				]}
-				onChangeText={value => setComment(value)} />
-			<TouchableOpacity
-				onPress={()=> saveData()}
-			>
-				<Text style={styles.button}>{props.nameButton}</Text>
-			</TouchableOpacity>
-{/*			<Button 
-				title={"Ver Noticias"}
-				onPress={()=> props.navigation.navigate('news')}
-			/>*/}
+		<View>
+			<View style={styles.container}>
+				<Image
+					style={styles.logo} 
+					source={require('../../assets/code7Logo.png')}/>
+				<TextInput
+					placeholder="Título da notícia"
+					value={title}
+					style={[
+						styles.input,
+						validatesForm(title)
+					]}
+					onChangeText={value => setTitle(value)} />
+				<TextInput
+					placeholder="Autor"
+					value={author}
+					style={[
+						styles.input,
+						validatesForm(author)
+					]}
+					onChangeText={value => setAuthor(value)} />
+				<TextInput
+					multiline={true}
+					numberOfLines={7}
+					maxLength={300}
+					textAlignVertical = "top"
+					placeholder="Texto da notícia"
+					value={comment}
+					style={[
+						styles.input,
+						{paddingTop: 18},
+						validatesForm(comment)
+					]}
+					onChangeText={value => setComment(value)} />
+				<TouchableOpacity
+					onPress={()=> saveData()}
+				>
+					<Text style={styles.button}>{props.nameButton}</Text>
+				</TouchableOpacity>
+			</View>
+			<View style={styles.footer}>
+				<Footer
+					active={props.active}
+					navigation={props.navigation}/>
+			</View>
 		</View>
 	)
 }
@@ -118,7 +130,9 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    minHeight: (Dimensions.get('window').height - 60),
+    maxWidth: '100%'
 	},
 	logo: {
 		width:231,
@@ -147,6 +161,9 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		paddingVertical: 15,
 		textTransform: 'uppercase',
+	},
+	footer: {
+		marginLeft: 20
 	}
 })
 
